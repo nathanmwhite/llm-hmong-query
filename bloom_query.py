@@ -1,7 +1,7 @@
 import json
 import requests
 
-from .util import prompt_prefix, words
+from .util import prompt_prefix, words, cultural_terms
 
 API_URL = "https://api-inference.huggingface.co/models/bigscience/bloom"
 API_TOKEN = "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"
@@ -19,6 +19,13 @@ def query(text):
 def loop_words():
     results = []
     for w in words.keys():
+        data = query(prompt_prefix + w + " - ")
+        results.append((w, data))
+    return results
+
+def loop_cultural_terms():
+    results = []
+    for w in cultural_terms:
         data = query(prompt_prefix + w + " - ")
         results.append((w, data))
     return results
